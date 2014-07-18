@@ -32,11 +32,6 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
         $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-
-        $config = $this->getConfig();
-        if (isset($config['translator']['locale'])) {
-            \Locale::setDefault($config['translator']['locale']);
-        }
     }
 
     public function getConfig()

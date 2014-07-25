@@ -29,14 +29,17 @@ class Bootstrap extends AbstractBootstrap
         return ArrayUtils::merge(
             parent::getApplicationConfig(),
             array(
+                'module_listener_options' => array(
+                    'config_glob_paths' => array(
+                        dirname(__DIR__) . '/{,*.}{global,local}.php',
+                    ),
+                ),
                 'modules' => array(
                     'ZfcRbac',
                     'KmbAuthentication',
                     'KmbFakeAuthentication',
                     'KmbPermission',
                     'KmbPuppetDb',
-                    'KmbServers',
-                    'KmbPuppet',
                     'KmbDashboard',
                 )
             )

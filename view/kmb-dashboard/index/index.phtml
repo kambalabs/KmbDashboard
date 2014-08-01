@@ -41,7 +41,7 @@
             <div class="panel-heading"><span class="glyphicon glyphicon-list"></span><span class="panel-break"></span><?php echo $this->translate('Recently rebooted servers') ?></div>
             <ul class="list-group list-group-flush" id="recently_rebooted">
 <?php foreach ($this->recentlyRebootedNodes as $nodeName => $hour): ?>
-                <li class="list-group-item"><span class="label label-warning label-uniform-large"><?php echo $hour ?></span>&nbsp;<a href="<?php echo $this->url('server', array('hostname' => $nodeName), array('query' => array('back' => $this->url('index')))) ?>"><?php echo $this->escapeHtml($nodeName) ?></a></li>
+                <li class="list-group-item"><span class="label label-warning label-uniform-large"><?php echo $hour ?></span>&nbsp;<a href="<?php echo $this->url('server', ['hostname' => $nodeName, 'action' => 'show'], ['query' => ['back' => $this->url('index', [], [], true)]], true) ?>"><?php echo $this->escapeHtml($nodeName) ?></a></li>
 <?php endforeach ?>
             </ul>
         </div>

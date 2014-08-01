@@ -3,22 +3,25 @@ return [
     'router' => [
         'routes' => [
             'index' => [
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type' => 'Segment',
                 'options' => [
-                    'route' => '/',
+                    'route' => '[/env/:envId]/',
+                    'constraints' => [
+                        'envId' => '[0-9]+',
+                    ],
                     'defaults' => [
                         'controller' => 'KmbDashboard\Controller\Index',
                         'action' => 'index',
+                        'envId' => '0',
                     ],
                 ],
             ],
             'dashboard' => [
-                'type' => 'segment',
+                'type' => 'Segment',
                 'options' => [
-                    'route' => '/dashboard[/][:action][/:id]',
+                    'route' => '[/env/:envId]/dashboard[/]',
                     'constraints' => [
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id' => '[0-9]+',
+                        'envId' => '[0-9]+',
                     ],
                     'defaults' => [
                         'controller' => 'KmbDashboard\Controller\Index',

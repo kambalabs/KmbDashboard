@@ -26,6 +26,7 @@ return [
                     'defaults' => [
                         'controller' => 'KmbDashboard\Controller\Index',
                         'action' => 'index',
+                        'envId' => '0',
                     ],
                 ],
             ],

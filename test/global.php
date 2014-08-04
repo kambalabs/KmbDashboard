@@ -1,76 +1,65 @@
 <?php
 return [
+    'service_manager' => [
+        'invokables' => [
+            'EnvironmentRepository' => 'KmbDashboardTest\Infrastructure\Memory\EnvironmentRepository',
+        ]
+    ],
     'router' => [
         'routes' => [
-            'signout' => [
-                'type' => 'Literal',
+            'index' => [
+                'type' => 'Segment',
                 'options' => [
-                    'route' => '/signout',
+                    'route' => '[/env/:envId]/',
                     'defaults' => [
-                        'controller' => 'KmbOabAuthentication\Controller\Signout',
-                        'action' => 'index',
                     ],
                 ],
             ],
-            'puppet' => [
-                'type' => 'Literal',
+            'dashboard' => [
+                'type' => 'Segment',
                 'options' => [
-                    'route' => '/puppet',
+                    'route' => '[/env/:envId]/dashboard[/]',
                     'defaults' => [
-                        '__NAMESPACE__' => 'KmbPuppet\Controller',
-                        'controller' => 'Reports',
-                        'action' => 'index',
-                    ],
-                ],
-                'may_terminate' => true,
-                'child_routes' => [
-                    'default' => [
-                        'type' => 'Segment',
-                        'options' => [
-                            'route' => '/[:controller[/:action]]',
-                            'constraints' => [
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ],
-                            'defaults' => [
-                            ],
-                        ],
-                    ],
-                    'withid' => [
-                        'type' => 'Segment',
-                        'options' => [
-                            'route' => '/[:controller[/:id][/:action]]',
-                            'constraints' => [
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]*',
-                            ],
-                            'defaults' => [
-                            ],
-                        ],
                     ],
                 ],
             ],
             'servers' => [
-                'type' => 'segment',
+                'type' => 'Segment',
                 'options' => [
-                    'route' => '/servers[/]',
+                    'route' => '[/env/:envId]/servers[/[:action]]',
                     'defaults' => [
-                        'controller' => 'KmbServers\Controller\Index',
-                        'action' => 'index',
                     ],
                 ],
             ],
             'server' => [
-                'type' => 'segment',
+                'type' => 'Segment',
                 'options' => [
-                    'route' => '/servers/:hostname[/:action]',
-                    'constraints' => [
-                        'hostname' => '(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])',
-                    ],
+                    'route' => '[/env/:envId]/server/:hostname[/[:action]]',
                     'defaults' => [
-                        'controller' => 'KmbServers\Controller\Index',
-                        'action' => 'show',
+                    ],
+                ],
+            ],
+            'puppet' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '[/env/:envId]/puppet[/[:controller[/:action]]]',
+                    'defaults' => [
+                    ],
+                ],
+            ],
+            'puppet-environment' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '[/env/:envId]/puppet/environment/:id/:action',
+                    'defaults' => [
+                    ],
+                ],
+            ],
+            'puppet-environment-user-remove' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '[/env/:envId]/puppet/environment/:id/user/:userId/remove',
+                    'defaults' => [
                     ],
                 ],
             ],

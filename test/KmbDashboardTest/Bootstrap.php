@@ -24,6 +24,13 @@ class Bootstrap extends AbstractBootstrap
         return BASE_PATH;
     }
 
+    public static function getNamespacePaths()
+    {
+        return ArrayUtils::merge(parent::getNamespacePaths(), [
+            __NAMESPACE__ => __DIR__
+        ]);
+    }
+
     public static function getApplicationConfig()
     {
         return ArrayUtils::merge(

@@ -21,7 +21,9 @@
 namespace KmbDashboard\Controller;
 
 use KmbDomain\Model\EnvironmentInterface;
-use KmbPuppetDb\Model\NodeInterface;
+use KmbPuppetDb\Query\EnvironmentsQueryBuilderInterface;
+use KmbPuppetDb\Service\NodeStatisticsInterface;
+use KmbPuppetDb\Service\ReportStatisticsInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -31,29 +33,27 @@ class IndexController extends AbstractActionController
     {
         $serviceManager = $this->getServiceLocator();
 
+        /** @var NodeStatisticsInterface $nodeStatistics */
         $nodeStatistics = $serviceManager->get('nodeStatisticsService');
-        $reportStatistics = $this->getServiceLocator()->get('reportStatisticsService');
+        /** @var ReportStatisticsInterface $reportStatistics */
+        $reportStatistics = $serviceManager->get('reportStatisticsService');
+        /** @var EnvironmentsQueryBuilderInterface $nodesEnvironmentsQueryBuilder */
+        $nodesEnvironmentsQueryBuilder = $serviceManager->get('KmbPuppetDb\Query\NodesEnvironmentsQueryBuilder');
+        /** @var EnvironmentsQueryBuilderInterface $reportsEnvironmentsQueryBuilder */
+        $reportsEnvironmentsQueryBuilder = $serviceManager->get('KmbPuppetDb\Query\ReportsEnvironmentsQueryBuilder');
+        /** @var \KmbPermission\Service\EnvironmentInterface $permissionEnvironmentService */
+        $permissionEnvironmentService = $serviceManager->get('KmbPermission\Service\Environment');
 
         /** @var EnvironmentInterface $environment */
         $environment = $serviceManager->get('EnvironmentRepository')->getById($this->params()->fromRoute('envId'));
+        $environments = $permissionEnvironmentService->getAllReadable($environment);
+
         $model = array_merge(
             ['environment' => $environment],
-            $nodeStatistics->getAllAsArray($this->environmentQuery($environment)),
-            $reportStatistics->getAllAsArray()
+            $nodeStatistics->getAllAsArray($nodesEnvironmentsQueryBuilder->build($environments)),
+            $reportStatistics->getAllAsArray($reportsEnvironmentsQueryBuilder->build($environments))
         );
 
         return new ViewModel($model);
-    }
-
-    /**
-     * @param EnvironmentInterface $environment
-     * @return array
-     */
-    protected function environmentQuery($environment)
-    {
-        if ($environment != null) {
-            return ['=', ['fact', NodeInterface::ENVIRONMENT_FACT], $environment->getNormalizedName()];
-        }
-        return null;
     }
 }

@@ -2,16 +2,20 @@
 namespace KmbDashboardTest\Controller;
 
 use KmbDashboardTest\Bootstrap;
+use KmbMemoryInfrastructure\Fixtures;
+use Zend\ServiceManager\ServiceManager;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
 class IndexControllerTest extends AbstractHttpControllerTestCase
 {
+    use Fixtures;
     protected $traceError = true;
 
     public function setUp()
     {
         $this->setApplicationConfig(Bootstrap::getApplicationConfig());
         parent::setUp();
+        $this->initFixtures();
     }
 
     /** @test */
@@ -62,5 +66,13 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         $this->assertQueryContentContains('span.stats_puppet_success', '465');
         $this->assertQueryContentContains('span.stats_puppet_failures', '152');
         $this->assertQueryContentContains('div.panel-heading .label', '433');
+    }
+
+    /**
+     * @return ServiceManager
+     */
+    public function getServiceManager()
+    {
+        return $this->getApplicationServiceLocator();
     }
 }

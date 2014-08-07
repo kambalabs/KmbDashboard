@@ -5,7 +5,7 @@ return [
             'index' => [
                 'type' => 'Segment',
                 'options' => [
-                    'route' => '[/env/:envId]/',
+                    'route' => '[/env/:envId][/]',
                     'constraints' => [
                         'envId' => '[0-9]+',
                     ],

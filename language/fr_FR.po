@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kamba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-04 16:33+0100\n"
-"PO-Revision-Date: 2014-08-04 16:33+0100\n"
+"POT-Creation-Date: 2014-08-11 00:41+0100\n"
+"PO-Revision-Date: 2014-08-11 00:41+0100\n"
 "Last-Translator: Emmanuel Bouton <goten4@gmail.com>\n"
 "Language-Team: Kamba Contibutors <devteam@kamba.org>\n"
 "Language: \n"
@@ -39,34 +39,38 @@ msgid_plural "failures"
 msgstr[0] "échec"
 msgstr[1] "échecs"
 
-#: ../view/kmb-dashboard/index/index.phtml:26
+#: ../view/kmb-dashboard/index/index.phtml:23
+msgid "Environment"
+msgstr "Environnement"
+
+#: ../view/kmb-dashboard/index/index.phtml:29
 #, php-format
 msgid "%s server for %s OS"
 msgid_plural "Distribution of the %s servers by %s OS"
 msgstr[0] "%s serveur pour %s OS"
 msgstr[1] "Répartition des %s serveurs pour les %s OS"
 
-#: ../view/kmb-dashboard/index/index.phtml:41
+#: ../view/kmb-dashboard/index/index.phtml:44
 msgid "Recently rebooted servers"
 msgstr "Serveurs redémarrés récemment"
 
-#: ../view/kmb-dashboard/index/index.phtml:51
+#: ../view/kmb-dashboard/index/index.phtml:54
 msgid "Puppet informations"
 msgstr "Informations Puppet"
 
-#: ../view/kmb-dashboard/index/index.phtml:53
+#: ../view/kmb-dashboard/index/index.phtml:56
 msgid "Unchanged server"
 msgid_plural "Unchanged servers"
 msgstr[0] "Serveur OK"
 msgstr[1] "Serveurs OK"
 
-#: ../view/kmb-dashboard/index/index.phtml:54
+#: ../view/kmb-dashboard/index/index.phtml:57
 msgid "Changed server"
 msgid_plural "Changed servers"
 msgstr[0] "Serveur corrigé"
 msgstr[1] "Serveurs corrigés"
 
-#: ../view/kmb-dashboard/index/index.phtml:55
+#: ../view/kmb-dashboard/index/index.phtml:58
 msgid "Failed server"
 msgid_plural "Failed servers"
 msgstr[0] "Serveur en échec"
@@ -143,9 +147,6 @@ msgstr[1] "Serveurs en échec"
 
 #~ msgid "Day reports"
 #~ msgstr "Rapports du jour"
-
-#~ msgid "Environment"
-#~ msgstr "Environnement"
 
 #~ msgid "Inventory"
 #~ msgstr "Inventaire"

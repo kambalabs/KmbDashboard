@@ -21,9 +21,8 @@
 namespace KmbDashboard\Controller;
 
 use KmbDomain\Model\EnvironmentInterface;
-use KmbPuppetDb\Query\EnvironmentsQueryBuilderInterface;
+use KmbPuppetDb\Query\QueryBuilderInterface;
 use KmbPuppetDb\Service\NodeStatisticsInterface;
-use KmbPuppetDb\Service\ReportStatisticsInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -35,12 +34,8 @@ class IndexController extends AbstractActionController
 
         /** @var NodeStatisticsInterface $nodeStatistics */
         $nodeStatistics = $serviceManager->get('nodeStatisticsService');
-        /** @var ReportStatisticsInterface $reportStatistics */
-        $reportStatistics = $serviceManager->get('reportStatisticsService');
-        /** @var EnvironmentsQueryBuilderInterface $nodesEnvironmentsQueryBuilder */
+        /** @var QueryBuilderInterface $nodesEnvironmentsQueryBuilder */
         $nodesEnvironmentsQueryBuilder = $serviceManager->get('KmbPuppetDb\Query\NodesEnvironmentsQueryBuilder');
-        /** @var EnvironmentsQueryBuilderInterface $reportsEnvironmentsQueryBuilder */
-        $reportsEnvironmentsQueryBuilder = $serviceManager->get('KmbPuppetDb\Query\ReportsEnvironmentsQueryBuilder');
         /** @var \KmbPermission\Service\EnvironmentInterface $permissionEnvironmentService */
         $permissionEnvironmentService = $serviceManager->get('KmbPermission\Service\Environment');
 
@@ -50,8 +45,7 @@ class IndexController extends AbstractActionController
 
         $model = array_merge(
             ['environment' => $environment],
-            $nodeStatistics->getAllAsArray($nodesEnvironmentsQueryBuilder->build($environments)),
-            $reportStatistics->getAllAsArray($reportsEnvironmentsQueryBuilder->build($environments))
+            $nodeStatistics->getAllAsArray($nodesEnvironmentsQueryBuilder->build($environments))
         );
 
         return new ViewModel($model);

@@ -43,28 +43,15 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
                     'node2.local' => '13:29 hours',
                 ),
             )));
-        $reportStatisticsMock = $this->getMock('KmbPuppetDb\Service\ReportStatisticsInterface');
-        $reportStatisticsMock->expects($this->any())
-            ->method('getAllAsArray')
-            ->will($this->returnValue(array(
-                'skips' => 804,
-                'success' => 465,
-                'failures' => 152,
-                'noops' => 16,
-            )));
 
         $serviceManager = $this->getApplicationServiceLocator();
         $serviceManager->setAllowOverride(true);
         $serviceManager->setService('KmbPuppetDb\Service\NodeStatistics', $nodeStatisticsMock);
-        $serviceManager->setService('KmbPuppetDb\Service\ReportStatistics', $reportStatisticsMock);
 
         $this->dispatch('/dashboard');
 
         $this->assertResponseStatusCode(200);
         $this->assertControllerName('KmbDashboard\Controller\Index');
-        $this->assertQueryContentContains('span.stats_puppet_skips', '804');
-        $this->assertQueryContentContains('span.stats_puppet_success', '465');
-        $this->assertQueryContentContains('span.stats_puppet_failures', '152');
         $this->assertQueryContentContains('div.panel-heading .label', '433');
     }
 

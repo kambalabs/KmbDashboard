@@ -19,9 +19,10 @@ return [
             'dashboard' => [
                 'type' => 'Segment',
                 'options' => [
-                    'route' => '[/env/:envId]/dashboard[/]',
+                    'route' => '[/env/:envId]/dashboard[/[:action]]',
                     'constraints' => [
                         'envId' => '[0-9]+',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ],
                     'defaults' => [
                         'controller' => 'KmbDashboard\Controller\Index',
@@ -54,12 +55,22 @@ return [
             'KmbDashboard\Controller\Index' => 'KmbDashboard\Controller\IndexController'
         ],
     ],
+    'controller_plugins' => array(
+        'invokables' => array(
+            'decorateChangedCount' => 'KmbDashboard\Controller\Plugin\DecorateChangedCount',
+            'decorateFailedCount' => 'KmbDashboard\Controller\Plugin\DecorateFailedCount',
+            'decorateUnchangedCount' => 'KmbDashboard\Controller\Plugin\DecorateUnchangedCount',
+            'decorateOsDistribution' => 'KmbDashboard\Controller\Plugin\DecorateOsDistribution',
+            'decorateOsDistributionTitle' => 'KmbDashboard\Controller\Plugin\DecorateOsDistributionTitle',
+            'decorateRecentlyRebooted' => 'KmbDashboard\Controller\Plugin\DecorateRecentlyRebooted',
+        )
+    ),
     'view_manager' => [
-        'template_map' => [
-            'kmb-dashboard/index/index' => __DIR__ . '/../view/kmb-dashboard/index/index.phtml',
-        ],
         'template_path_stack' => [
             __DIR__ . '/../view',
+        ],
+        'strategies' => [
+            'ViewJsonStrategy',
         ],
     ],
     'zfc_rbac' => [
@@ -67,10 +78,17 @@ return [
             'ZfcRbac\Guard\ControllerGuard' => [
                 [
                     'controller' => 'KmbDashboard\Controller\Index',
-                    'actions' => ['index'],
+                    'actions' => ['index', 'stats'],
                     'roles' => ['user']
                 ]
             ]
+        ],
+    ],
+    'asset_manager' => [
+        'resolver_configs' => [
+            'paths' => [
+                __DIR__ . '/../public',
+            ],
         ],
     ],
 ];

@@ -2,22 +2,6 @@
 return [
     'router' => [
         'routes' => [
-            'index' => [
-                'type' => 'Segment',
-                'options' => [
-                    'route' => '[/env/:envId]/',
-                    'defaults' => [
-                    ],
-                ],
-            ],
-            'dashboard' => [
-                'type' => 'Segment',
-                'options' => [
-                    'route' => '[/env/:envId]/dashboard[/]',
-                    'defaults' => [
-                    ],
-                ],
-            ],
             'servers' => [
                 'type' => 'Segment',
                 'options' => [
@@ -58,6 +42,15 @@ return [
                     ],
                 ],
             ],
+        ],
+    ],
+    'view_helpers' => [
+        'invokables' => [
+            'translate' => 'KmbBaseTest\View\Helper\FakeTranslateHelper',
+            'translatePlural' => 'KmbBaseTest\View\Helper\FakeTranslateHelper',
+            'escapeHtml' => 'KmbBaseTest\View\Helper\FakeEscapeHtmlHelper',
+            'escapeHtmlAttr' => 'KmbBaseTest\View\Helper\FakeEscapeHtmlAttrHelper',
+            'url' => 'KmbBaseTest\View\Helper\FakeUrlHelper',
         ],
     ],
 ];

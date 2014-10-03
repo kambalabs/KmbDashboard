@@ -13,14 +13,12 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
-            <div class="panel-heading"><span class="glyphicon glyphicon-th"></span><span class="panel-break"></span><?php echo sprintf($this->translatePlural('%s server for %s OS', 'Distribution of the %s servers by %s OS', $this->nodesCount), '<span class="label label-info label-uniform">' . $this->numberFormat($this->nodesCount) . '</span>', $this->numberFormat($this->osCount)) ?></div>
-            <div class="panel-body">
-<?php foreach ($this->nodesCountByOS as $os => $nodesCount): ?>
-                <div class="row">
-                    <div class="col-lg-4"><span class="label label-info label-uniform"><?php echo $this->numberFormat($nodesCount) ?></span> <label><?php echo $os ?></label></div>
-                    <div class="col-lg-8"><div class="progress"><div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $this->nodesPercentageByOS[$os] * 100 ?>%"><span><?php echo $this->numberFormat($this->nodesPercentageByOS[$os], NumberFormatter::PERCENT) ?></span></div></div></div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-th"></span><span class="panel-break"></span><span id="os-distribution-title"></span></div>
+            <div class="panel-body" id="os-distribution">
+                <div class="row text-center" id="loading">
+                    <p><img src="/images/wait.gif" alt="" /></p>
+                    <p><?php echo $this->translate('Loading statistics ...'); ?></p>
                 </div>
-<?php endforeach ?>
             </div>
         </div>
     </div>
@@ -29,10 +27,7 @@
     <div class="col-sm-4">
         <div class="panel panel-default">
             <div class="panel-heading"><span class="glyphicon glyphicon-list"></span><span class="panel-break"></span><?php echo $this->translate('Recently rebooted servers') ?></div>
-            <ul class="list-group list-group-flush" id="recently_rebooted">
-<?php foreach ($this->recentlyRebootedNodes as $nodeName => $hour): ?>
-                <li class="list-group-item"><span class="label label-warning label-uniform-large"><?php echo $hour ?></span>&nbsp;<a href="<?php echo $this->url('server', ['hostname' => $nodeName, 'action' => 'show'], ['query' => ['back' => $this->url('index', [], [], true)]], true) ?>"><?php echo $this->escapeHtml($nodeName) ?></a></li>
-<?php endforeach ?>
+            <ul class="list-group list-group-flush" id="recently-rebooted">
             </ul>
         </div>
     </div>
@@ -40,10 +35,11 @@
         <div class="panel panel-default">
             <div class="panel-heading"><span class="glyphicon glyphicon-list"></span><span class="panel-break"></span><?php echo $this->translate('Puppet informations') ?></div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><span class="label label-success label-uniform"><?php echo $this->numberFormat($this->unchangedCount) ?></span> <?php echo $this->translatePlural('Unchanged server', 'Unchanged servers', $this->unchangedCount) ?></li>
-                <li class="list-group-item"><span class="label label-warning label-uniform"><?php echo $this->numberFormat($this->changedCount) ?></span> <?php echo $this->translatePlural('Changed server', 'Changed servers', $this->changedCount) ?></li>
-                <li class="list-group-item"><span class="label label-danger label-uniform"><?php echo $this->numberFormat($this->failedCount) ?></span> <?php echo $this->translatePlural('Failed server', 'Failed servers', $this->failedCount) ?></li>
+                <li class="list-group-item" id="unchanged-count"></li>
+                <li class="list-group-item" id="changed-count"></li>
+                <li class="list-group-item" id="failed-count"></li>
             </ul>
         </div>
     </div>
 </div>
+<?php $this->inlineScript()->prependFile($this->basePath() . '/js/kamba.dashboard.js'); ?>

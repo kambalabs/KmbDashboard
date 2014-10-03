@@ -24,30 +24,43 @@ use KmbDomain\Model\EnvironmentInterface;
 use KmbPuppetDb\Query\QueryBuilderInterface;
 use KmbPuppetDb\Service\NodeStatisticsInterface;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $serviceManager = $this->getServiceLocator();
-
-        /** @var NodeStatisticsInterface $nodeStatistics */
-        $nodeStatistics = $serviceManager->get('nodeStatisticsService');
-        /** @var QueryBuilderInterface $nodesEnvironmentsQueryBuilder */
-        $nodesEnvironmentsQueryBuilder = $serviceManager->get('KmbPuppetDb\Query\NodesEnvironmentsQueryBuilder');
-        /** @var \KmbPermission\Service\EnvironmentInterface $permissionEnvironmentService */
-        $permissionEnvironmentService = $serviceManager->get('KmbPermission\Service\Environment');
-
         /** @var EnvironmentInterface $environment */
-        $environment = $serviceManager->get('EnvironmentRepository')->getById($this->params()->fromRoute('envId'));
+        $environment = $this->serviceLocator->get('EnvironmentRepository')->getById($this->params()->fromRoute('envId'));
+
+        return new ViewModel(['environment' => $environment]);
+    }
+
+    public function statsAction()
+    {
+        /** @var EnvironmentInterface $environment */
+        $environment = $this->serviceLocator->get('EnvironmentRepository')->getById($this->params()->fromRoute('envId'));
+
+        /** @var QueryBuilderInterface $nodesEnvironmentsQueryBuilder */
+        $nodesEnvironmentsQueryBuilder = $this->serviceLocator->get('KmbPuppetDb\Query\NodesEnvironmentsQueryBuilder');
+
+        /** @var \KmbPermission\Service\EnvironmentInterface $permissionEnvironmentService */
+        $permissionEnvironmentService = $this->serviceLocator->get('KmbPermission\Service\Environment');
         $environments = $permissionEnvironmentService->getAllReadable($environment);
 
-        $model = array_merge(
-            ['environment' => $environment],
-            $nodeStatistics->getAllAsArray($nodesEnvironmentsQueryBuilder->build($environments))
-        );
+        /** @var NodeStatisticsInterface $nodeStatistics */
+        $nodeStatistics = $this->serviceLocator->get('nodeStatisticsService');
 
-        return new ViewModel($model);
+        $statistics = $nodeStatistics->getAllAsArray($nodesEnvironmentsQueryBuilder->build($environments));
+
+        return new JsonModel([
+            'changedCount' => $this->decorateChangedCount($statistics),
+            'failedCount' => $this->decorateFailedCount($statistics),
+            'unchangedCount' => $this->decorateUnchangedCount($statistics),
+            'osDistribution' => $this->decorateOsDistribution($statistics),
+            'osDistributionTitle' => $this->decorateOsDistributionTitle($statistics),
+            'recentlyRebooted' => $this->decorateRecentlyRebooted($statistics),
+        ]);
     }
 }

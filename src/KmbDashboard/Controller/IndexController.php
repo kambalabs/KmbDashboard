@@ -33,6 +33,7 @@ class IndexController extends AbstractActionController
     {
         /** @var EnvironmentInterface $environment */
         $environment = $this->serviceLocator->get('EnvironmentRepository')->getById($this->params()->fromRoute('envId'));
+        $this->serviceLocator->get('KmbPermission\Service\Environment')->getAllReadable($environment);
 
         return new ViewModel(['environment' => $environment]);
     }

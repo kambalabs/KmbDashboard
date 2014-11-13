@@ -20,6 +20,7 @@
  */
 namespace KmbDashboard\Controller;
 
+use KmbAuthentication\Controller\AuthenticatedControllerInterface;
 use KmbDomain\Model\EnvironmentInterface;
 use KmbPuppetDb\Query\QueryBuilderInterface;
 use KmbPuppetDb\Service\NodeStatisticsInterface;
@@ -27,7 +28,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
-class IndexController extends AbstractActionController
+class IndexController extends AbstractActionController implements AuthenticatedControllerInterface
 {
     public function indexAction()
     {

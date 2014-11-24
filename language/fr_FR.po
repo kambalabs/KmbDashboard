@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kamba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-29 00:44+0100\n"
-"PO-Revision-Date: 2014-09-29 00:44+0100\n"
+"POT-Creation-Date: 2014-11-24 11:29+0100\n"
+"PO-Revision-Date: 2014-11-24 11:29+0100\n"
 "Last-Translator: Emmanuel Bouton <goten4@gmail.com>\n"
 "Language-Team: Kamba Contibutors <devteam@kamba.org>\n"
 "Language: \n"
@@ -17,64 +17,68 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../view/kmb-dashboard/index/index.phtml:3
-msgid "Day Puppet statistics"
-msgstr "Statistiques Puppet du jour"
+#: ../src/KmbDashboard/View/Decorator/FailedCountDecorator.php:33
+msgid "Failed server"
+msgid_plural "Failed servers"
+msgstr[0] "Serveur en échec"
+msgstr[1] "Serveurs en échec"
 
-#: ../view/kmb-dashboard/index/index.phtml:8
-msgid "skip"
-msgid_plural "skips"
-msgstr[0] "skip"
-msgstr[1] "skips"
+#: ../src/KmbDashboard/View/Decorator/ChangedCountDecorator.php:33
+msgid "Changed server"
+msgid_plural "Changed servers"
+msgstr[0] "Serveur corrigé"
+msgstr[1] "Serveurs corrigés"
 
-#: ../view/kmb-dashboard/index/index.phtml:13
-msgid "change"
-msgid_plural "changes"
-msgstr[0] "changement"
-msgstr[1] "changements"
-
-#: ../view/kmb-dashboard/index/index.phtml:18
-msgid "failure"
-msgid_plural "failures"
-msgstr[0] "échec"
-msgstr[1] "échecs"
-
-#: ../view/kmb-dashboard/index/index.phtml:23
-msgid "Environment"
-msgstr "Environnement"
-
-#: ../view/kmb-dashboard/index/index.phtml:29
+#: ../src/KmbDashboard/View/Decorator/OsDistributionTitleDecorator.php:31
 #, php-format
 msgid "%s server for %s OS"
 msgid_plural "Distribution of the %s servers by %s OS"
 msgstr[0] "%s serveur pour %s OS"
 msgstr[1] "Répartition des %s serveurs pour les %s OS"
 
-#: ../view/kmb-dashboard/index/index.phtml:44
-msgid "Recently rebooted servers"
-msgstr "Serveurs redémarrés récemment"
-
-#: ../view/kmb-dashboard/index/index.phtml:54
-msgid "Puppet informations"
-msgstr "Informations Puppet"
-
-#: ../view/kmb-dashboard/index/index.phtml:56
+#: ../src/KmbDashboard/View/Decorator/UnchangedCountDecorator.php:33
 msgid "Unchanged server"
 msgid_plural "Unchanged servers"
 msgstr[0] "Serveur OK"
 msgstr[1] "Serveurs OK"
 
-#: ../view/kmb-dashboard/index/index.phtml:57
-msgid "Changed server"
-msgid_plural "Changed servers"
-msgstr[0] "Serveur corrigé"
-msgstr[1] "Serveurs corrigés"
+#: ../view/kmb-dashboard/index/index.phtml:5
+msgid "Environment"
+msgstr "Environnement"
 
-#: ../view/kmb-dashboard/index/index.phtml:58
-msgid "Failed server"
-msgid_plural "Failed servers"
-msgstr[0] "Serveur en échec"
-msgstr[1] "Serveurs en échec"
+#: ../view/kmb-dashboard/index/index.phtml:9
+msgid "Day Puppet statistics"
+msgstr "Statistiques Puppet du jour"
+
+#: ../view/kmb-dashboard/index/index.phtml:21
+msgid "Loading statistics ..."
+msgstr "Chargement des statistiques ..."
+
+#: ../view/kmb-dashboard/index/index.phtml:30
+msgid "Recently rebooted servers"
+msgstr "Serveurs redémarrés récemment"
+
+#: ../view/kmb-dashboard/index/index.phtml:37
+msgid "Puppet informations"
+msgstr "Informations Puppet"
+
+#~ msgid "skip"
+
+#~ msgid_plural "skips"
+#~ msgstr[0] "skip"
+#~ msgstr[1] "skips"
+
+#~ msgid "change"
+
+#~ msgid_plural "changes"
+#~ msgstr[0] "changement"
+#~ msgstr[1] "changements"
+
+#~ msgid "failure"
+
+#~ msgid_plural "failures"
+#~ msgstr[0] "échec"
+#~ msgstr[1] "échecs"
 
 #~ msgid "A 404 error occurred"
 #~ msgstr "Une erreur 404 est survenue"

@@ -65,6 +65,16 @@ return [
             'decorateRecentlyRebooted' => 'KmbDashboard\Controller\Plugin\DecorateRecentlyRebooted',
         )
     ),
+    'navigation' => [
+        'default' => [
+            [
+                'label' => 'Dashboard',
+                'route' => 'dashboard',
+                'useRouteMatch' => true,
+                'tabindex' => 20,
+            ],
+        ],
+    ],
     'view_manager' => [
         'template_path_stack' => [
             __DIR__ . '/../view',

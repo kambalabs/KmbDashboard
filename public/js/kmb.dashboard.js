@@ -4,6 +4,7 @@ $(window).load(function () {
     var prefixUriMatch = parser.pathname.match(/(\/env\/[0-9]+)/);
     var prefixUri = prefixUriMatch ? prefixUriMatch[1] : '';
 
+    NProgress.start();
     $.getJSON(prefixUri + '/dashboard/stats', function (data) {
         $('#os-distribution-title').html(data.osDistributionTitle);
         $('#unchanged-count').html(data.unchangedCount);
@@ -16,5 +17,6 @@ $(window).load(function () {
         $.each(data.recentlyRebooted, function (index, val) {
             $('#recently-rebooted').append(val);
         });
+        NProgress.done();
     });
 });

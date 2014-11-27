@@ -1,4 +1,6 @@
 <?php
+// Awfull hack to tell to poedit to translate navigation labels
+$translate = function($message) { return $message; };
 return [
     'router' => [
         'routes' => [
@@ -68,8 +70,8 @@ return [
     'navigation' => [
         'default' => [
             [
-                'label' => 'Dashboard',
-                'route' => 'dashboard',
+                'label' => $translate('Dashboard'),
+                'route' => 'index',
                 'useRouteMatch' => true,
                 'tabindex' => 20,
             ],

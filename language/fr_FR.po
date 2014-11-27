@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kamba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-24 11:29+0100\n"
-"PO-Revision-Date: 2014-11-24 11:29+0100\n"
+"POT-Creation-Date: 2014-11-27 13:08+0100\n"
+"PO-Revision-Date: 2014-11-27 13:08+0100\n"
 "Last-Translator: Emmanuel Bouton <goten4@gmail.com>\n"
 "Language-Team: Kamba Contibutors <devteam@kamba.org>\n"
 "Language: \n"
@@ -41,6 +41,10 @@ msgid "Unchanged server"
 msgid_plural "Unchanged servers"
 msgstr[0] "Serveur OK"
 msgstr[1] "Serveurs OK"
+
+#: ../config/module.config.php:73
+msgid "Dashboard"
+msgstr "Tableau de bord"
 
 #: ../view/kmb-dashboard/index/index.phtml:5
 msgid "Environment"
@@ -130,9 +134,6 @@ msgstr "Informations Puppet"
 
 #~ msgid "An error occurred"
 #~ msgstr "Une erreur est survenue"
-
-#~ msgid "Dashboard"
-#~ msgstr "Dashboard"
 
 #~ msgid "Servers"
 #~ msgstr "Serveurs"

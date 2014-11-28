@@ -32,7 +32,16 @@ class OsDistributionDecorator extends AbstractDecorator
         if (!empty($data['nodesCountByOS'])) {
             foreach ($data['nodesCountByOS'] as $os => $nodesCount) {
                 $nodesPercentageByOS = $data['nodesPercentageByOS'][$os];
-                $result[] = '<div class="row"><div class="col-lg-4"><span class="label label-info label-uniform">' . $this->numberFormat($nodesCount) . '</span> <label>' . $this->escapeHtml($os) . '</label></div><div class="col-lg-8"><div class="progress"><div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: ' . $nodesPercentageByOS * 100 . '%"><span>' . $this->numberFormat($nodesPercentageByOS, \NumberFormatter::PERCENT) . '</span></div></div></div></div>';
+                $content  = '<div class="row"><div class="col-lg-4"><span class="label label-info label-uniform">' . $this->numberFormat($nodesCount) . '</span> <label>' . $this->escapeHtml($os) . '</label></div><div class="col-lg-8"><div class="progress"><div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="' . $nodesPercentageByOS * 100 . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $nodesPercentageByOS * 100 . '%">';
+                if ($nodesPercentageByOS < 0.06) {
+                    $content .= '</div>';
+                }
+                $content .= '<span>' . $this->numberFormat($nodesPercentageByOS, \NumberFormatter::PERCENT) . '</span>';
+                if ($nodesPercentageByOS >= 0.06) {
+                    $content .= '</div>';
+                }
+                $content .= '</div></div></div>';
+                $result[] = $content;
             }
         }
         return $result;

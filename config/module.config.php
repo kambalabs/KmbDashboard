@@ -68,7 +68,7 @@ return [
         )
     ),
     'navigation' => [
-        'default' => [
+        'navbar' => [
             [
                 'label' => $translate('Dashboard'),
                 'route' => 'index',

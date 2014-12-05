@@ -1,11 +1,12 @@
+<?php $this->headLink()->prependStylesheet($this->basePath() . '/css/kmb.dashboard.css') ?>
 <?php $this->inlineScript()->prependFile($this->basePath() . '/js/kmb.dashboard.js'); ?>
 <div class="row">
     <?php if ($this->environment != null): ?>
-    <div class="col-md-3 pull-right">
+    <div class="col-md-7 pull-right text-right">
         <h3><?php echo $this->translate('Environment') ?> <small><?php echo $this->formatAncestorsNames($this->environment) ?></small></h3>
     </div>
     <?php endif ?>
-    <div class="col-md-3">
+    <div class="col-md-5">
         <div><?php echo $this->translate('Day Puppet statistics') ?></div>
         <div class="date"><?php echo $this->dateFormat(new DateTime(), IntlDateFormatter::TRADITIONAL, IntlDateFormatter::NONE) ?></div>
     </div>

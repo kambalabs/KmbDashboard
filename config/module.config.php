@@ -69,7 +69,7 @@ return [
     ),
     'navigation' => [
         'navbar' => [
-            [
+            'dashboard' => [
                 'label' => $translate('Dashboard'),
                 'route' => 'index',
                 'useRouteMatch' => true,
